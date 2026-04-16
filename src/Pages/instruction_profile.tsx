@@ -20,42 +20,11 @@ import {
   Edit3,
 } from 'lucide-react';
 
-const instructor = {
-  name: 'Dr. Sara Ahmed',
-  title: 'Senior Frontend Engineer & Educator',
-  email: 'sara.ahmed@eduplatform.com',
-  phone: '+20 100 234 5678',
-  website: 'sara-ahmed.dev',
-  bio: 'Passionate educator with 8+ years of experience in software development and teaching. Specialized in modern JavaScript ecosystems including React, TypeScript, and Next.js. I believe in learning by building, and mentor hundreds of developers to advance their careers.',
-  avatar: null,
-  rating: 4.9,
-  totalStudents: 2840,
-  totalCourses: 7,
-  totalReviews: 1324,
-  joinedDate: 'January 2022',
-  expertise: ['React', 'TypeScript', 'Node.js', 'Next.js', 'GraphQL', 'TailwindCSS'],
-  socials: {
-    linkedin: 'linkedin.com/in/sara-ahmed',
-    twitter: '@sara_codes',
-    youtube: 'youtube.com/sara-teaches',
-  },
-  courses: [
-    { title: 'React & TypeScript Mastery', students: 423, rating: 4.9, status: 'Active' },
-    { title: 'Next.js Full Stack', students: 318, rating: 4.7, status: 'Active' },
-    { title: 'JavaScript Deep Dive', students: 612, rating: 4.8, status: 'Active' },
-    { title: 'Modern CSS & Animations', students: 201, rating: 4.6, status: 'Draft' },
-  ],
-  recentReviews: [
-    { name: 'Ahmed Mostafa', rating: 5, comment: 'Best instructor I have ever had. Clear, concise, and practical.', date: '2 days ago' },
-    { name: 'Fatma Khaled', rating: 5, comment: 'Sara explains complex concepts so simply. Highly recommended!', date: '5 days ago' },
-    { name: 'Omar Hassan', rating: 4, comment: 'Great content and well-structured course. Would love more advanced topics.', date: '1 week ago' },
-  ],
-};
 
 export default function Instruction_profile() {
   const [activeTab, setActiveTab] = useState<'overview' | 'courses' | 'reviews'>('overview');
   const tabs: Array<'overview' | 'courses' | 'reviews'> = ['overview', 'courses', 'reviews'];
-  const [stats, setStats] = useState({ students: 0, courses: 0, reviews: 1324 });
+  const [stats, setStats] = useState({ students: 0, courses: 0, reviews: 0 });
   const [adminData, setAdminData] = useState({ name: 'Admin', email: 'admin@eduplatform.com' });
   const [realCourses, setRealCourses] = useState<Course[]>([]);
 
@@ -142,15 +111,15 @@ export default function Instruction_profile() {
               {[1,2,3,4,5].map((s) => (
                 <Star key={s} size={14} className="text-amber-400 fill-amber-400" />
               ))}
-              <span className="ml-1 text-amber-400 font-bold text-sm">{instructor.rating}</span>
-              <span className="text-slate-500 text-xs">({instructor.totalReviews})</span>
+              <span className="ml-1 text-amber-400 font-bold text-sm">4.9</span>
+              <span className="text-slate-500 text-xs">({stats.reviews})</span>
             </div>
 
             <div className="grid grid-cols-3 gap-2 mt-5 pt-5 border-t border-white/10">
               {[
                 { label: 'Enrollments', value: stats.students.toLocaleString(), icon: Users },
                 { label: 'Courses', value: stats.courses, icon: BookOpen },
-                { label: 'Rating', value: instructor.rating, icon: Star },
+                { label: 'Rating', value: '4.9', icon: Star },
               ].map((s) => {
                 const Icon = s.icon;
                 return (
@@ -171,8 +140,8 @@ export default function Instruction_profile() {
             <h3 className="text-sm font-semibold text-white mb-3">Contact Information</h3>
             {[
               { icon: Mail, label: adminData.email },
-              { icon: Phone, label: instructor.phone },
-              { icon: Globe, label: instructor.website },
+              { icon: Phone, label: '+20 100 234 5678' },
+              { icon: Globe, label: 'eduplatform.com' },
             ].map((item) => {
               const Icon = item.icon;
               return (
@@ -214,7 +183,7 @@ export default function Instruction_profile() {
           <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
             <h3 className="text-sm font-semibold text-white mb-3">Expertise</h3>
             <div className="flex flex-wrap gap-2">
-              {instructor.expertise.map((tag) => (
+              {['React', 'TypeScript', 'Node.js', 'Next.js', 'GraphQL', 'TailwindCSS'].map((tag: string) => (
                 <span
                   key={tag}
                   className="px-3 py-1 rounded-full text-xs font-semibold bg-[#2111D4]/20 text-indigo-300 border border-[#2111D4]/30 hover:bg-[#2111D4]/30 transition-colors cursor-default"
@@ -234,13 +203,13 @@ export default function Instruction_profile() {
               <Award size={16} className="text-[#2111D4]" />
               <h3 className="text-sm font-semibold text-white">About</h3>
             </div>
-            <p className="text-slate-400 text-sm leading-relaxed">{instructor.bio}</p>
+            <p className="text-slate-400 text-sm leading-relaxed">Platform administrator managing educational content and user experiences. Dedicated to providing quality online learning experiences.</p>
             <div className="flex items-center gap-2 mt-4 text-xs text-slate-500">
               <CheckCircle size={13} className="text-emerald-400" />
-              <span>Verified Instructor</span>
+              <span>Verified Administrator</span>
               <span className="text-slate-600">•</span>
               <Clock size={12} />
-              <span>Joined {instructor.joinedDate}</span>
+              <span>Joined January 2022</span>
             </div>
           </div>
 
@@ -321,26 +290,9 @@ export default function Instruction_profile() {
               )}
 
               {activeTab === 'reviews' && (
-                <div className="space-y-4">
-                  {instructor.recentReviews.map((review, i) => (
-                    <div key={i} className="p-4 rounded-xl border border-white/10 bg-white/5">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center gap-2">
-                          <div className="w-7 h-7 rounded-full bg-[#2111D4]/30 flex items-center justify-center text-indigo-300 text-xs font-bold">
-                            {review.name[0]}
-                          </div>
-                          <span className="text-sm font-medium text-white">{review.name}</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          {Array.from({ length: review.rating }).map((_, s) => (
-                            <Star key={s} size={11} className="text-amber-400 fill-amber-400" />
-                          ))}
-                          <span className="text-slate-500 text-xs ml-1">{review.date}</span>
-                        </div>
-                      </div>
-                      <p className="text-sm text-slate-400 leading-relaxed">{review.comment}</p>
-                    </div>
-                  ))}
+                <div className="text-center py-10 text-slate-500">
+                  <Star size={24} className="mx-auto mb-2 opacity-20" />
+                  <p className="text-sm">No reviews available yet</p>
                 </div>
               )}
             </div>
