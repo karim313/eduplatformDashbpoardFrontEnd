@@ -62,6 +62,7 @@ export default function Login() {
   const { login } = useAuth()
   const [showPassword, setShowPassword] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(false)
+  const [loginError, setLoginError] = React.useState("")
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -70,12 +71,14 @@ export default function Login() {
 
   async function onSubmit(_data: LoginFormValues) {
     const { email, password } = _data
+    setLoginError("")
     setIsLoading(true)
     try {
       const res = await authService.login({ email, password })
       login(res.data.token, res.data.user)
       navigate("/")
-    } catch (error) {
+    } catch (error: any) {
+      setLoginError(error?.response?.data?.message || "Invalid credentials. Please try again.")
       console.error("Login failed:", error)
     } finally {
       setIsLoading(false)
@@ -150,6 +153,11 @@ export default function Login() {
             <CardDescription className="text-sm text-gray-600 mt-2">
               Sign in to continue your learning journey
             </CardDescription>
+            {loginError && (
+              <div className="mt-4 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-600 text-sm font-medium animate-in fade-in slide-in-from-top-1">
+                {loginError}
+              </div>
+            )}
           </CardHeader>
 
           <CardContent>

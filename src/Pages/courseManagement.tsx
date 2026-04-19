@@ -273,7 +273,9 @@ export default function CourseManagement() {
                           {course.category || 'N/A'}
                         </span>
                       </td>
-                      <td className="px-5 py-4 text-slate-400 text-center">{user?.name?.split(' ')[0] || adminName}</td>
+                      <td className="px-5 py-4 text-slate-400">
+                        {course.instructor?.name || adminName}
+                      </td>
                       <td className="px-5 py-4">
                         <div className="flex items-center gap-1.5 text-slate-300">
                           <Users size={13} className="text-slate-500" />
