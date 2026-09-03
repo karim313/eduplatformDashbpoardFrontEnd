@@ -75,7 +75,7 @@ export default function Login() {
     setIsLoading(true)
     try {
       const res = await authService.login({ email, password })
-      login(res.data.token, res.data.user)
+      login(res.data.token, res.data)
       navigate("/")
     } catch (error: any) {
       setLoginError(error?.response?.data?.message || "Invalid credentials. Please try again.")

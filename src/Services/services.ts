@@ -20,7 +20,10 @@ export interface User {
 
 export interface AuthResponse {
   token: string;
-  user: User;
+  _id: string;
+  name: string;
+  email: string;
+  role: string;
 }
 
 export interface ApiResponse<T> {
