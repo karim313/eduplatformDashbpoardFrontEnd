@@ -1,7 +1,10 @@
 import axios from 'axios';
 
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ||
+  'https://educational-platform-api2-production-d04a.up.railway.app/api';
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: apiBaseUrl,
   headers: {
     'Content-Type': 'application/json',
     'ngrok-skip-browser-warning': 'true',
